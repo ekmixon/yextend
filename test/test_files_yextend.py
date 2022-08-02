@@ -38,7 +38,7 @@ TARG_DIR = "test_files/"
 YARA_RULES_ROOT = "test_rulesets/"
 
 #GUANGGAO_YARA_RULESET = "%sguanggao_rules.yara" % YARA_RULES_ROOT
-LIPSUMPDF_YARA_RULESET = "%slorem_pdf.yara" % YARA_RULES_ROOT
+LIPSUMPDF_YARA_RULESET = f"{YARA_RULES_ROOT}lorem_pdf.yara"
 
 #GUANGGAO_FILE = "guanggao.gif"
 LIPSUM_PDF_FILE = "lipsum.txt.pdf"
@@ -46,11 +46,11 @@ LIPSUM_PDF_FILE = "lipsum.txt.pdf"
 LIPSUM_LOREM_YARA_RULE_ID = "LOREM_FILE_BODY"
 LIPSUM_LOREM_YARA_RULE_VAR = "$lipsum_pdf_body_lorem"
 
-GUANGGAO_YARA_RULESET = "%sguanggao_rules.yara" % YARA_RULES_ROOT
-ZAP_PDF_YARA_RULESET = "%szap_pdf_rules.yara" % YARA_RULES_ROOT
-MSOFFICE_YARA_RULESET = "%smsoffice_rules.yara" % YARA_RULES_ROOT
-MSOFFICE_MACRO_YARA_RULESET = "%smsoffice_macro_rules.yara" % YARA_RULES_ROOT
-MSOFFICEX_YARA_RULESET = "%smsofficex_rules.yara" % YARA_RULES_ROOT
+GUANGGAO_YARA_RULESET = f"{YARA_RULES_ROOT}guanggao_rules.yara"
+ZAP_PDF_YARA_RULESET = f"{YARA_RULES_ROOT}zap_pdf_rules.yara"
+MSOFFICE_YARA_RULESET = f"{YARA_RULES_ROOT}msoffice_rules.yara"
+MSOFFICE_MACRO_YARA_RULESET = f"{YARA_RULES_ROOT}msoffice_macro_rules.yara"
+MSOFFICEX_YARA_RULESET = f"{YARA_RULES_ROOT}msofficex_rules.yara"
 
 BZ2_TEST_FILE = "test.txt.bz2"
 GUANGGAO_FILE = "guanggao.gif"
@@ -86,13 +86,13 @@ MSOFFICEX_DOC_EXE = "embedded-exe.docx"
 ADOBE_PDF_PATTERN = "ADOBE_PDF"
 
 CRYPTO_DOC_EXE = "Test.docx"
-CRYPTO_YARA_RULESET = "%scrypto.yar" % YARA_RULES_ROOT
+CRYPTO_YARA_RULESET = f"{YARA_RULES_ROOT}crypto.yar"
 CRYPTO_PATTERN = "BLOWFISH_Constants"
 CRYPTO_MD5_PATTERN = "MD5_Constants"
 CRYPTO_RIPE_PATTERN = "RIPEMD160_Constants"
 
 PACKER_EXE = "VirusShare_0059ec457f9f173260d2dcad8f1fbdf7"
-PACKER_YARA_RULESET = "%spacker.yar" % YARA_RULES_ROOT
+PACKER_YARA_RULESET = f"{YARA_RULES_ROOT}packer.yar"
 PACKER_PATTERN_1 = "offsets=0x10ce6:$a0"
 PACKER_PATTERN_2 = "offsets=0x10ce6:$str1"
 

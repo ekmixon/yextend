@@ -33,15 +33,17 @@ def usage():
 def get_file_list(thedir='', thepattern='*'):
 
     if not thedir.endswith('/'):
-        thedir = thedir + '/'
+        thedir = f'{thedir}/'
     f_list = []
     if thedir:
         for root, dirnames, filenames in os.walk(thedir):
             for name in fnmatch.filter(filenames, thepattern):
-                complete_fname = "{}{}".format(root, name)
-                if os.path.isfile(complete_fname):
-                    if complete_fname not in f_list:
-                        f_list.append(complete_fname)
+                complete_fname = f"{root}{name}"
+                if (
+                    os.path.isfile(complete_fname)
+                    and complete_fname not in f_list
+                ):
+                    f_list.append(complete_fname)
     return f_list
 
 
@@ -68,8 +70,6 @@ def my_print(thestr='', thecolor=''):
             return format_str.format('38', thestr)
         elif thecolor == 'highlighted_red':
             return format_str.format('41', thestr)
-        elif thecolor == 'highlighted_red':
-            return format_str.format('42', thestr)
         elif thecolor == 'highlighted_brown':
             return format_str.format('43', thestr)
         elif thecolor == 'highlighted_blue':
@@ -296,32 +296,32 @@ def advanced_print(out="", ruleset_name=""):
     r_final = []
     j_final = []
     files_level1 = {}
-    
+
     for file_dict in out:
-        
-        files = []
+
         new_files = dict(file_dict)
         del new_files[scan_results_key]
-        files.append(format_child(new_files))
-        
+        files = [format_child(new_files)]
         for child in file_dict[scan_results_key]:
-            
+
             child_keys = child.keys()
             new_child = dict(child)
             if "child_file_name" in child_keys:
-            
+                        
                 new_child["file_name"] = new_child.pop("child_file_name")
                 child["file_name"] = child.pop("child_file_name")
 
                 for f in reversed(files):
                     f_keys = f.keys()
-                    if "file_name" in f_keys:
-                        if f["file_name"] == child["parent_file_name"]:
-                            try:
-                                f["children"].append(format_child(new_child))
-                            except:
-                                f["children"] = [format_child(new_child)]
-                
+                    if (
+                        "file_name" in f_keys
+                        and f["file_name"] == child["parent_file_name"]
+                    ):
+                        try:
+                            f["children"].append(format_child(new_child))
+                        except:
+                            f["children"] = [format_child(new_child)]
+
 
                 del child["parent_file_name"]
                 del new_child["parent_file_name"]
@@ -329,28 +329,25 @@ def advanced_print(out="", ruleset_name=""):
                 files.append(format_child(child))
 
             elif "non_archive_file_name" in child_keys:
-            
+
                 new_child["file_name"] = new_child.pop("non_archive_file_name")
                 try:
                     files[0]["children"].append(format_child(new_child))
                 except:
                     files[0]["children"] = [format_child(new_child)]
-                    
+
             else:
-            
+
                 try:
                     files[0]["children"].append(format_child(new_child))
                 except:
                     files[0]["children"] = [format_child(new_child)]
 
         for x in files:
-            if "children" in x:
-                if x not in j_final:
-                    j_final.append(x)
-                    #r_final.append(x)
-        
-        if len(j_final) > 0:
-            files_level1.update(j_final[0])
+            if "children" in x and x not in j_final:
+                j_final.append(x)
+        if j_final:
+            files_level1 |= j_final[0]
             files_level1[scan_results_key] = []
             cnt = 0
             for i in j_final:
